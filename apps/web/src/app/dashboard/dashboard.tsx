@@ -9,7 +9,18 @@ export default function Dashboard({
 }: {
 	session: typeof authClient.$Infer.Session;
 }) {
-	const privateData = useQuery(trpc.privateData.queryOptions());
+	const privateData = useQuery({
+		queryKey: ["privateData"],
+		queryFn: async () => {
+			const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/trpc/privateData`, {
+				credentials: "include",
+				headers: { "content-type": "application/json" },
+			});
+			if (!res.ok) throw new Error("Failed to fetch private data");
+			const json = await res.json();
+			return json?.result?.data ?? null;
+		},
+	});
 
 	return (
 		<>
