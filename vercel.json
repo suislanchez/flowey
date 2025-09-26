@@ -1,0 +1,11 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "apps/server/.next",
+  "installCommand": "npm install",
+  "framework": "nextjs",
+  "functions": {
+    "apps/server/src/app/**/*.ts": {
+      "runtime": "nodejs18.x"
+    }
+  }
+}
